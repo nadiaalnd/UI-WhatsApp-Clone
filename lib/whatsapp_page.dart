@@ -109,19 +109,30 @@ class _WhatsAppPageState extends State<WhatsAppPage>
       ),
       body: TabBarView(
         controller: tabController,
-        children: const [
-          CameraWidget(), 
-          ChatView(), 
-          StatusView(), 
-          CallView()],
+        children: const [CameraWidget(), ChatView(), StatusView(), CallView()],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: WhatsAppLightGreen,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15))),
-        child: const Icon(Icons.message_rounded),
-      ),
+      floatingActionButton: tabController?.index == 0
+          ? null
+          : FloatingActionButton(
+              onPressed: () {},
+              backgroundColor: WhatsAppLightGreen,
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15))),
+              child: _buildFabIcon(tabController?.index),
+            ),
     );
+  }
+
+  Icon _buildFabIcon(int? tabIndex) {
+    switch (tabIndex) {
+      case 1:
+        return Icon(Icons.message_rounded);
+      case 2:
+        return Icon(Icons.camera_alt_outlined);
+      case 3:
+        return Icon(Icons.call);
+      default:
+        return Icon(Icons.message_rounded);
+    }
   }
 }

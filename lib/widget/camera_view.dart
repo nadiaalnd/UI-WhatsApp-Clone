@@ -114,8 +114,6 @@ class _CameraWidgetState extends State<CameraWidget>
                   print('Error taking picture: $e');
                 }
               },
-              Icons.camera,
-              Colors.white,
             ),
           ],
         ),
@@ -124,29 +122,33 @@ class _CameraWidgetState extends State<CameraWidget>
   }
 
   Widget _customButton(
-      String text, Function() onPressed, IconData icon, Color iconColor) {
+      String text, Function() onPressed) {
     return Container(
       width: 70,
       height: 70,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: Colors.black,
+        border: Border.all(
+          color: Colors.white,
+          width: 2.0,
+        ),
+        color: Color.fromARGB(255, 255, 255, 255),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.3),
+            color: const Color.fromARGB(255, 241, 239, 239).withOpacity(0.3),
             spreadRadius: 1,
             blurRadius: 5,
             offset: const Offset(0, 3),
           ),
         ],
       ),
-      child: IconButton(
-        icon: Icon(
-          icon,
-          color: iconColor,
-          size: 32,
+      padding: EdgeInsets.all(4.0),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(35),
+          onTap: onPressed,
         ),
-        onPressed: onPressed as void Function(),
       ),
     );
   }
